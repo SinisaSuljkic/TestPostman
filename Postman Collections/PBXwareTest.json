@@ -13104,6 +13104,338 @@
 							"id": "2adcb470-f60a-49ed-bb1e-14cc36432f60"
 						},
 						{
+							"name": "Operator Wake-up Call",
+							"item": [
+								{
+									"name": "Wake-up Call set",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a7619c22-9ebe-42b8-b21a-1b29c6930eb4",
+												"exec": [
+													"// Check for 200 OK response",
+													"pm.test('Status code is 200 OK', function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"// Parse the response JSON",
+													"var responseBody = pm.response.json();",
+													"",
+													"// Check if there is an error field in the response",
+													"if ('error' in responseBody) {",
+													"    console.error(\"Test Failed: \" + responseBody.error);",
+													"    pm.test('API Response Error', function () {",
+													"        pm.expect.fail(responseBody.error);",
+													"    });",
+													"} else {",
+													"    // Check if \"state\" field exists",
+													"    pm.test('State Field Validation', function () {",
+													"        pm.expect(responseBody).to.have.property('state');",
+													"        pm.expect(responseBody.state).to.be.a('string');",
+													"        pm.expect(['yes', 'no', 'pin']).to.include(responseBody.state);",
+													"    });",
+													"    // Check if \"success\" field exists",
+													"    pm.test('Success Field Validation', function () {",
+													"        pm.expect(responseBody).to.have.property('success');",
+													"        pm.expect(responseBody.success).to.be.a('string');",
+													"    });",
+													"}",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "8e99590f-de28-4c63-be0f-55ca08df2e9a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{IP}}/index.php?apikey={{API_Key}}&action=pbxware.ext.es.wakeupcall.set&server={{Srv/Tenant-ID}}&id={{ExtensionIDs}}&state=yes",
+											"protocol": "http",
+											"host": [
+												"{{IP}}"
+											],
+											"path": [
+												"index.php"
+											],
+											"query": [
+												{
+													"key": "apikey",
+													"value": "{{API_Key}}"
+												},
+												{
+													"key": "action",
+													"value": "pbxware.ext.es.wakeupcall.set"
+												},
+												{
+													"key": "server",
+													"value": "{{Srv/Tenant-ID}}",
+													"description": "Server/Tenant ID"
+												},
+												{
+													"key": "id",
+													"value": "{{ExtensionIDs}}",
+													"description": "Extension ID. (Regex: /^\\\\d+$/)"
+												},
+												{
+													"key": "state",
+													"value": "yes",
+													"description": "Argument state can have one of these: yes or no."
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Wake-up Call get",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6c8e5a51-92d1-4126-941e-c0898a731d16",
+												"exec": [
+													"// Check for 200 OK response",
+													"pm.test('Status code is 200 OK', function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"// Parse the response JSON",
+													"var responseBody = pm.response.json();",
+													"",
+													"// Check if there is an error field in the response",
+													"if ('error' in responseBody) {",
+													"    console.error(\"Test Failed: \" + responseBody.error);",
+													"    pm.test('API Response Error', function () {",
+													"        pm.expect.fail(responseBody.error);",
+													"    });",
+													"} else {",
+													"    // Check if \"state\" field exists",
+													"    pm.test('State Field Validation', function () {",
+													"        pm.expect(responseBody).to.have.property('state');",
+													"",
+													"        // Check if \"state\" is one of the valid values",
+													"        pm.expect(['yes', 'no', 'pin']).to.include(responseBody.state);",
+													"    });",
+													"}",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "080b0d95-841a-44ce-9fcc-84f90e0142b6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{IP}}/index.php?apikey={{API_Key}}&action=pbxware.ext.es.wakeupcall.get&server={{Srv/Tenant-ID}}&id={{ExtensionIDs}}",
+											"protocol": "http",
+											"host": [
+												"{{IP}}"
+											],
+											"path": [
+												"index.php"
+											],
+											"query": [
+												{
+													"key": "apikey",
+													"value": "{{API_Key}}"
+												},
+												{
+													"key": "action",
+													"value": "pbxware.ext.es.wakeupcall.get"
+												},
+												{
+													"key": "server",
+													"value": "{{Srv/Tenant-ID}}",
+													"description": "Server/Tenant ID."
+												},
+												{
+													"key": "id",
+													"value": "{{ExtensionIDs}}",
+													"description": "Extension ID. (Regex: /^\\\\d+$/)"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Wake-up Call set OSC",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "a7619c22-9ebe-42b8-b21a-1b29c6930eb4",
+												"exec": [
+													"// Check for 200 OK response",
+													"pm.test('Status code is 200 OK', function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"// Parse the response JSON",
+													"var responseBody = pm.response.json();",
+													"",
+													"// Check if there is an error field in the response",
+													"if ('error' in responseBody) {",
+													"    console.error(\"Test Failed: \" + responseBody.error);",
+													"    pm.test('API Response Error', function () {",
+													"        pm.expect.fail(responseBody.error);",
+													"    });",
+													"} else {",
+													"    // Check if \"state\" field exists",
+													"    pm.test('State Field Validation', function () {",
+													"        pm.expect(responseBody).to.have.property('state');",
+													"        pm.expect(responseBody.state).to.be.a('string');",
+													"        pm.expect(['yes', 'no']).to.include(responseBody.state);",
+													"    });",
+													"    // Check if \"success\" field exists",
+													"    pm.test('Success Field Validation', function () {",
+													"        pm.expect(responseBody).to.have.property('success');",
+													"        pm.expect(responseBody.success).to.be.a('string');",
+													"    });",
+													"}",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "e5990194-e6f3-47c0-8841-580028219c3c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{IP}}/index.php?apikey={{API_Key}}&action=pbxware.ext.es.wakeupcall.set_osc&server={{Srv/Tenant-ID}}&id={{ExtensionIDs}}&state=1",
+											"protocol": "http",
+											"host": [
+												"{{IP}}"
+											],
+											"path": [
+												"index.php"
+											],
+											"query": [
+												{
+													"key": "apikey",
+													"value": "{{API_Key}}"
+												},
+												{
+													"key": "action",
+													"value": "pbxware.ext.es.wakeupcall.set_osc"
+												},
+												{
+													"key": "server",
+													"value": "{{Srv/Tenant-ID}}",
+													"description": "Server/Tenant ID"
+												},
+												{
+													"key": "id",
+													"value": "{{ExtensionIDs}}",
+													"description": "Extension ID. (Regex: /^\\\\d+$/)"
+												},
+												{
+													"key": "state",
+													"value": "1",
+													"description": "Argument state can have one of these: yes or no. Regex: /^(yes|no|1|0)$/)"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "Wake-up Call get OSC",
+									"event": [
+										{
+											"listen": "test",
+											"script": {
+												"id": "6c8e5a51-92d1-4126-941e-c0898a731d16",
+												"exec": [
+													"// Check for 200 OK response",
+													"pm.test('Status code is 200 OK', function () {",
+													"    pm.response.to.have.status(200);",
+													"});",
+													"",
+													"// Parse the response JSON",
+													"var responseBody = pm.response.json();",
+													"",
+													"// Check if there is an error field in the response",
+													"if ('error' in responseBody) {",
+													"    console.error(\"Test Failed: \" + responseBody.error);",
+													"    pm.test('API Response Error', function () {",
+													"        pm.expect.fail(responseBody.error);",
+													"    });",
+													"} else {",
+													"    // Check if \"state\" field exists",
+													"    pm.test('State Field Validation', function () {",
+													"        pm.expect(responseBody).to.have.property('state');",
+													"",
+													"        // Check if \"state\" is one of the valid values",
+													"        pm.expect(['yes', 'no']).to.include(responseBody.state);",
+													"    });",
+													"}",
+													""
+												],
+												"type": "text/javascript"
+											}
+										}
+									],
+									"id": "38896c2d-c65e-4b5f-98ea-f9102451b756",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "http://{{IP}}/index.php?apikey={{API_Key}}&action=pbxware.ext.es.wakeupcall.get_osc&server={{Srv/Tenant-ID}}&id={{ExtensionIDs}}",
+											"protocol": "http",
+											"host": [
+												"{{IP}}"
+											],
+											"path": [
+												"index.php"
+											],
+											"query": [
+												{
+													"key": "apikey",
+													"value": "{{API_Key}}"
+												},
+												{
+													"key": "action",
+													"value": "pbxware.ext.es.wakeupcall.get_osc"
+												},
+												{
+													"key": "server",
+													"value": "{{Srv/Tenant-ID}}",
+													"description": "Server/Tenant ID."
+												},
+												{
+													"key": "id",
+													"value": "{{ExtensionIDs}}",
+													"description": "Extension ID. (Regex: /^\\\\d+$/)"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "3d3fe195-4488-4116-8989-0ee0a56a9c69"
+						},
+						{
 							"name": "SMS Notification",
 							"item": [
 								{
@@ -26044,729 +26376,729 @@
 	],
 	"variable": [
 		{
-			"id": "c7e361ee-7607-4493-aa40-3037a4489c59",
+			"id": "92292dce-e002-49eb-a8d6-96e49c84c857",
 			"key": "API_Key",
 			"value": "Test123456789",
 			"type": "string"
 		},
 		{
-			"id": "ec9d4b47-aa9d-4e40-a17e-1990ab0a94ad",
+			"id": "f68bc273-be6f-48d4-b20f-df3562c63dd4",
 			"key": "IP",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "16f61d7c-f361-4b84-88e0-8fdf639524db",
+			"id": "c66d12a4-3b9f-4d91-a390-f633541f3cdf",
 			"key": "Srv/Tenant-ID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5eafa641-a5e3-49ea-a6d0-e4f3cbd1eb19",
+			"id": "c496f09e-83ff-497c-9edf-6e5ca4601783",
 			"key": "tenant_name",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "eaaa91bf-3f13-4d2a-8200-95808e9f64d0",
+			"id": "51d7bb1b-80dd-40ff-8b64-9b316b39a668",
 			"key": "tenant_code",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "8bfcce5a-9c24-4a79-8bfb-6bdaf4140bb0",
+			"id": "ffcee1da-b551-49e0-b76a-6450a2dad25e",
 			"key": "tenantPackageId",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "7200aaa1-770c-4d1d-a8b5-2990f6bb3795",
+			"id": "7f434e7b-a11e-4063-b903-b86a3a74c058",
 			"key": "tenantID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ce1ae1dc-dc15-4542-a182-eb543e2cf9f8",
+			"id": "703b771d-39b2-44d9-aa0b-dab954b2ee99",
 			"key": "name",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "03fdaec1-cca0-4680-ac45-44f9a111903d",
+			"id": "a45a685c-0a68-4700-9759-7dc39eca9ba9",
 			"key": "email",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "b8fea2ac-df8b-4a2b-8cc3-114796244056",
+			"id": "5c4d292f-f21e-4689-9606-dd96e65dfea7",
 			"key": "extension",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "dbae1abc-5a87-4d57-8cf5-5b5e55538676",
+			"id": "45f87e93-476f-4c2a-bbca-6a7eb4c22211",
 			"key": "secret",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "f4509aaa-332d-4803-a99d-a88953d78efc",
+			"id": "c28e54bc-a55d-4a3e-a30d-4a5f29e81db3",
 			"key": "pin",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "59a43023-d80b-4855-bfa8-f7acc6f63e98",
+			"id": "81e31e39-db3d-4d5e-9e08-dfd10361be94",
 			"key": "trunkID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "0f8ee0a6-562e-4806-991b-5e25f0d8a4f6",
+			"id": "23545962-e17c-4a26-8610-ab83d1011f24",
 			"key": "did",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1f4ec324-49a9-4ae7-856e-42f79d693f87",
+			"id": "0bb349e7-79e3-4d1d-b9c7-2cbc0b98d05f",
 			"key": "ext",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "338a0ef5-ac84-4610-a986-a96e49585199",
+			"id": "a0ce4b6c-ac2c-4d75-9b64-0212cd3ff067",
 			"key": "ExtensionID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "cf8806c7-e88d-4bde-8802-be87fc95fa4a",
+			"id": "95d3bdff-c598-4d76-b8ec-6a026a7d8008",
 			"key": "ExtensionIDs",
 			"value": ""
 		},
 		{
-			"id": "4f68af5c-f6bb-493c-84a5-43b28ec0ec66",
+			"id": "79a30359-a429-423b-83a1-70e4bdee422d",
 			"key": "DateStart",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "34dd1083-c2ac-4ac0-a2f6-825c06c36231",
+			"id": "e6cfdf2b-36f6-4d17-9cf2-ac02baca0f7a",
 			"key": "DateEnd",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9771253d-347a-4b0e-a1f4-ac86227b5862",
+			"id": "e8d8b9af-29e8-40b6-92f5-b6bf93b668c3",
 			"key": "StartTime",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1b70f6e5-5366-4a0c-954d-e78b8519282f",
+			"id": "4720d493-ce0e-42fc-80c6-cab6c2c98571",
 			"key": "EndTime",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1ab4a938-b8c5-44a2-a7d4-0064204fe767",
+			"id": "70cfcb17-5a12-4b3a-bc08-2be0cb37c4f8",
 			"key": "TrunkIDs",
 			"value": ""
 		},
 		{
-			"id": "7dc77cec-678b-433d-97b9-731c1789743c",
+			"id": "67d56099-bd5a-48a3-b7ef-b2b927c505b8",
 			"key": "TrunkName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "f702b6b4-8e03-40a7-9862-b048557f77ec",
+			"id": "3213d085-80b9-4cd3-926f-1b7e599a52b4",
 			"key": "ProviderID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "b3f52631-312b-4c94-bb13-b8d1e07ca912",
+			"id": "2102d552-1ef6-4e18-ae3f-fb5390f7e143",
 			"key": "TrunkType",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5b3d7950-126a-4ffb-b68b-057d5ebe10d7",
+			"id": "4280bea1-bdda-4604-b872-18a9da39d970",
 			"key": "TrunkDTMFmode",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "433600b0-2a2e-40b7-99e3-3033d18aa9b1",
+			"id": "e0d1f4c7-afb0-4627-af87-3a665940b5f8",
 			"key": "TrunkStatus",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ae15f798-8917-4f6c-acbe-3cc97a969a24",
+			"id": "8dac52c2-3960-4d85-8379-0b3f8178b3f0",
 			"key": "Country",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c2e0d0fb-3c14-4560-b0e5-105dd87fb5e6",
+			"id": "e4622893-efc8-4ece-b318-c1db0ae0d617",
 			"key": "NationalCode",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "3775dd11-3f1f-4aee-b6d5-0e5aae63fab8",
+			"id": "19e5f05a-32c1-4cf4-974d-01b0bbae76ea",
 			"key": "InternationalCode",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "886c61d1-d9a4-42d4-be67-9af426cc4ea1",
+			"id": "de742924-0755-4692-99e5-207654a83655",
 			"key": "EmergTrunk",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "f90229d5-f897-49d0-9db5-cbbf7a7d0253",
+			"id": "ea062983-b2fe-4dc6-873f-b3422990baba",
 			"key": "TrunkHost",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ddc4ccc0-de46-4af8-ad22-b2e217dae82d",
+			"id": "7275fd39-1820-4bdf-ad13-d48218d0b100",
 			"key": "TrunkUserName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6e586653-2c28-455c-9898-6f59e023f765",
+			"id": "05304883-6335-43c0-ae72-dcb11fff7375",
 			"key": "TrunkSecret",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "f2ffec94-7453-4df0-a6d0-ada0fe664e7a",
+			"id": "6ec9af5b-84c1-4bcc-ac70-c609b574adeb",
 			"key": "TrunkPeerHost",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1b5ab3b5-f4fe-4161-bcc5-f4ccc51743d3",
+			"id": "d8eefcdf-9bf4-4f13-b4a6-5a8a4e28bb9d",
 			"key": "TrunkPeerUserName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d8925b7c-75ad-4bf9-bb50-1a96af2bee83",
+			"id": "d94ba693-4f08-4f82-8ac6-3099bb8ffa1b",
 			"key": "TrunkPeerSecret",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "71ace6f8-0f39-4336-9ac8-82f95296c545",
+			"id": "26c51f3b-6188-4da8-8d26-de94d936e86f",
 			"key": "TrunkInsecure",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "4bc86f8f-a238-4ae0-b8a4-984b6c24b4f4",
+			"id": "35264f77-caf7-4ba3-9172-f9081c6e457e",
 			"key": "TrunkLooseRouting",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "850b9501-ec98-44c6-8391-fb46d272656e",
+			"id": "5ea7b7a1-b13a-40de-91c9-b42fb673213d",
 			"key": "TrunkIncomingLimit",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "257e4b75-9015-41ea-98dd-8d17f35917bf",
+			"id": "16c62810-994d-41f2-bfcc-ed7999a9e4b4",
 			"key": "TrunkOutgoingLimit",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d089bd2f-51c4-41fd-bb5a-18c18ba814e6",
+			"id": "e87072af-90a7-4ba1-bf5e-f3357d8f2330",
 			"key": "TrunkBusyLevel",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "58b82287-ab96-4a05-a232-4d53e02c2eab",
+			"id": "42bd1f54-1111-4192-b782-4c2cc0267aea",
 			"key": "TrunkCodecs",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d5a41100-366a-4026-856e-2d5a1753331b",
+			"id": "1627b14b-2372-4204-bf99-e9d7142fffb5",
 			"key": "TrunkCodecsPrimeTime",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d15dcae4-ad52-4186-8307-cb6a6909fbae",
+			"id": "7dd94ea4-2bc9-443b-bf10-4e998fb2086b",
 			"key": "SMSTrunkIDs",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "55a11d9c-ba64-41b4-8ae3-301beb4b9c4e",
+			"id": "ad39d4c3-1032-49a6-b0d3-556c6702c38e",
 			"key": "SMSTrunkEnabled",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "41fff269-07bb-4bab-8083-6a07637fe6fe",
+			"id": "264fa062-63ce-4378-9057-db62d76e45de",
 			"key": "SMSTrunkName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6d14ec8a-2570-411a-b7e2-dc53d6908e87",
+			"id": "f15fa34b-2ae3-42ea-ae07-1e742f9a98e0",
 			"key": "SMSTrunkProvider",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d2fd66fb-d0d9-4475-9cb1-39d302e6127c",
+			"id": "628e499d-004c-41a6-baef-5d6e3ac78e9a",
 			"key": "TelnyxAPI",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5f690fa2-c84c-4932-8bd7-36d5eef72db1",
+			"id": "e98afae1-b990-4927-b587-ca73c79399a4",
 			"key": "TelnyxPublicKey",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "fd19ee0e-0736-4ab8-9428-f59bb8fa9c3c",
+			"id": "36a19809-6b7b-4ac2-9fd9-b18ead4ce044",
 			"key": "TelnyxProfileID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "fcfa3db2-ca04-4b05-8c52-473be4eee670",
+			"id": "a54fabf2-b17e-492d-8b20-9306450f1cea",
 			"key": "BandwithUserName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "7234d828-a6bf-4520-9c6d-34531c2b6117",
+			"id": "da787f83-f64a-4121-bb9c-dc8d931c3802",
 			"key": "BandwithPassword",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "67b89252-0bc8-458f-810a-b79789843f93",
+			"id": "8e3f06b8-816b-41fc-8cc1-c602d457fad8",
 			"key": "BandwithUserID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9bacd182-4cde-4742-9491-a11d323d8885",
+			"id": "27324237-d8a7-405a-9fe4-0f91022b0e64",
 			"key": "BandwithAppID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "56f15a22-14b2-4811-8ec0-cf065ba8eced",
+			"id": "4dddf92f-64e9-4498-abfb-a9393ef4702c",
 			"key": "TwilioAccSID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "8ebceaec-9712-4de5-9cb8-2d1aac8bd228",
+			"id": "1317d84c-a4f4-41a1-b89b-73f66600d3fa",
 			"key": "TwilioAuthToken",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "28f89878-6e8c-4457-8b0e-eb273bba04e5",
+			"id": "dcfbca9e-3ebf-43fb-9d76-36f5c8b0c0a7",
 			"key": "VoipSecret",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9cf44f43-cffb-4542-9b5e-5c1f43934a0e",
+			"id": "4e19f520-8a36-4ab7-854b-7ae1c752e36b",
 			"key": "VoipLogin",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "3757a842-ca03-4bc2-b136-ac7de10f82fa",
+			"id": "4c128587-c251-44cf-99ec-6a410390f111",
 			"key": "OzAPI",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9ed5ff26-1d8f-43b2-9f26-0959ddcc3f74",
+			"id": "e27aecf7-4f7c-4320-9611-ba7a590f5520",
 			"key": "OzUserName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "81893410-b90e-4ab4-b92d-baaa2d63e3aa",
+			"id": "482a9643-58de-45c0-b65d-7127d2a7465f",
 			"key": "DID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "7a6f0734-17c9-43c4-bb41-1ae33b90b61a",
+			"id": "ee917ad4-9a11-478b-b513-3d9f250c6741",
 			"key": "Destination",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ca9052cd-8788-42a3-ba61-7b336c8665d3",
+			"id": "cac795a1-e8e4-4259-9a12-8e82ab0120b4",
 			"key": "DestType",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "b76ec486-ae0d-4983-8c50-f99c1358a7f0",
+			"id": "42628060-3568-49fb-8882-a76c25be1bd4",
 			"key": "DID-Disabled",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "ab108d47-fcd4-41f2-85df-d8a420673daa",
+			"id": "8a442b9d-cda0-4db5-b50f-7c5ffd89a27d",
 			"key": "DID-IDs",
 			"value": ""
 		},
 		{
-			"id": "3b466d03-3674-492f-aa0b-a845d69c3296",
+			"id": "bc914f08-5d82-489a-96d4-ec6ccb3ff1c3",
 			"key": "DIDGroupName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "25c07ed7-056f-4adc-a7df-7e3e136a58b3",
+			"id": "702efaca-7ef7-437a-ae3e-9c2430407384",
 			"key": "DIDMin",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "93e95685-cb0a-467a-9a13-39e44409099c",
+			"id": "1779893c-278b-403a-936c-3e1baba499da",
 			"key": "DIDMax",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "243c03a3-6335-41d1-adba-e9416c3771f1",
+			"id": "7770d7e8-b83b-43ba-9fe1-2906b4b4070c",
 			"key": "DIDGroupID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a6dcd215-50af-4e7c-b177-0feebc9a3da5",
+			"id": "7b6fb2f7-7424-4f3b-894e-716b24a961e9",
 			"key": "IVRName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "54900989-6560-4fa7-9d9e-f2c2756bb4d4",
+			"id": "686943bb-efd0-4272-acff-33f6dbeed353",
 			"key": "IVRNum",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c67b94a1-1274-449a-af5a-ad14207ae0df",
+			"id": "d6e7c0b9-86ed-4d93-b5e4-e961a7d7df8d",
 			"key": "IVRGreet",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "feb742e0-5c73-4c9e-a95c-3c0765878290",
+			"id": "c311d39b-433a-4de6-bb61-8f8bfecfcc47",
 			"key": "IVRKeyMap",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a612c827-a268-459b-b111-8f3392d00594",
+			"id": "66068fd4-6221-40f0-8d0e-850f6c78571d",
 			"key": "IVRStatus",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "8e5faf9c-3b6c-44c7-b9b5-a28d302629ba",
+			"id": "25490dc7-b76a-445c-b4a4-d645bb7c3be5",
 			"key": "IVRsID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "53d39e3e-8d05-4b9b-a822-04623c511981",
+			"id": "afc4da82-5242-4650-b796-75c61fc5b8ce",
 			"key": "Key0Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "7c498110-a82b-4bdf-99e2-b695e28aad18",
+			"id": "6e7c6925-29aa-4cc9-b4be-d11edb97a58f",
 			"key": "Key0Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2536e49b-cf44-4b9c-803d-4aa334769287",
+			"id": "8436080c-17a7-4d37-bc3c-9c6a3c07610e",
 			"key": "Key1Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d1d7a738-e053-45af-8f35-f25404716ee1",
+			"id": "072971b5-74be-4996-a5fa-0bfe49e72b04",
 			"key": "Key1Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a1184145-6da4-4462-9ac9-4bcc995bddf0",
+			"id": "f298c63e-4289-49a9-b878-c6c5a9c44326",
 			"key": "Key2Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "66d6455b-090a-4c9e-b8cc-4f8cdccdfc6a",
+			"id": "82f68f67-946e-43b4-a58a-0aa37d845262",
 			"key": "Key2Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "1d2c3afc-dabd-4ca5-ad65-3880a5823be5",
+			"id": "241d2047-1bb3-4974-95e5-8472ea856b24",
 			"key": "Key3Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "23009e6d-0847-4aae-bcd8-a5d6574dc00c",
+			"id": "63959855-44e8-41ce-aed4-da3b5f6c5b67",
 			"key": "Key3Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "e57b59f2-80c3-4920-b1dc-ad41066a99ea",
+			"id": "0c31b00d-2584-4010-8a60-49fb867649de",
 			"key": "Key4Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "fef39f26-482f-4f35-a55c-4c5cae358ee2",
+			"id": "652edd56-6b4c-439b-a73a-e725b3322bfb",
 			"key": "Key4Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9c8ede80-8016-4895-87ff-8d79ff336872",
+			"id": "22c3cdc3-f25c-4e02-93a9-72f71e6f884c",
 			"key": "Key5Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "aba23766-daf7-46c7-8f30-3dd90eb4c91b",
+			"id": "a81daeb9-991e-4d2f-b6c2-ac520e9fb04f",
 			"key": "Key5Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2fcc873a-b291-466f-9649-529edfae11ba",
+			"id": "479bc5e6-6e11-441d-afc7-7b70d47f7eb2",
 			"key": "Key6Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "3d15b655-5925-46a9-9852-907a583d0f16",
+			"id": "d4739be9-ca30-4de7-a2fa-8094fb9ba758",
 			"key": "Key6Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "50baeb50-044a-44d1-889f-05f8ad7379a0",
+			"id": "fc8d59f1-e71d-422d-88fa-3b711fc9fd3f",
 			"key": "Key7Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "76255783-bb35-452b-b390-e5f9891d2c6b",
+			"id": "0d2f8e46-3e96-4bba-b52d-081994ce6793",
 			"key": "Key7Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a7487b8d-6ac2-41bd-a3c3-a898564fd5d9",
+			"id": "af8b3b10-01d8-4344-91fc-19afe44922a8",
 			"key": "Key8Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "93d02917-431b-4079-bf4c-c8599f719091",
+			"id": "b58be73d-df75-4ee4-a8e5-f79a024ebec1",
 			"key": "Key8Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6a99f5ef-ff20-4b83-ac9a-3f330f1d6efc",
+			"id": "19af7f5e-b989-4c6c-a2b8-0cd964d65b7c",
 			"key": "Key9Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "b052ed69-d7eb-435f-b9e5-b1d4250206ef",
+			"id": "6aa023b8-1aa9-4422-8dfe-8792d172d4f7",
 			"key": "Key9Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "59ffc581-1503-474f-9be0-a79d7ed88004",
+			"id": "78a98907-8b74-4a83-9cdf-027ffc581bca",
 			"key": "Key*Type",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "5fbb4604-9cd4-43db-94d6-90c331ce709e",
+			"id": "dd919a9d-3ff4-4786-99f5-e74f8ab37c96",
 			"key": "Key*Dest",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "00509249-a2b9-4406-b297-14fec4306e7d",
+			"id": "73bc1789-2cf7-417d-8a25-9eede684db31",
 			"key": "RGsID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "e9f8f5a4-987a-4cd1-8403-883982147026",
+			"id": "921a4956-28ad-45f2-9c00-cec4af4c7c85",
 			"key": "RGName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "04ff6f68-c496-4355-b533-a5703610c36e",
+			"id": "e2b3a824-9fb3-426a-a05d-98c9427bdb8e",
 			"key": "RGNum",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "59d53fd0-ec85-4095-a403-55b1af6e2696",
+			"id": "71dc9874-86d6-4ac5-b774-6fd6447da7ca",
 			"key": "RGExt",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "beb389c4-73ec-407e-acd7-130b5dc9d292",
+			"id": "0a14922a-ccef-40a7-ab32-d9dfbebde085",
 			"key": "ERGsID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "98d07c62-2b0d-483b-8e71-1b4609f4a1f8",
+			"id": "92ce7423-baac-4d0a-a088-15f774dc7a40",
 			"key": "ERGPenal",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a22180a0-8306-46ea-8669-ff394ca0f34a",
+			"id": "910f55f9-4c8e-4772-8b19-e44ade7b322c",
 			"key": "OperationTimesID",
 			"value": ""
 		},
 		{
-			"id": "616151bc-d1e9-469b-8402-fa611f7252e8",
+			"id": "7d55fe77-e421-423a-b27c-80b332af2b25",
 			"key": "TenantPackageName",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "2a38bb68-c8e2-44cb-b7bb-1d0fd0e5a65d",
+			"id": "f86b0bd9-2606-463f-b04d-ae32db70ed69",
 			"key": "TenantPackageID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "0bfcfe71-ec8d-476b-ad5f-aaf4c9539af3",
+			"id": "6ab35d45-edad-4a73-89b5-390b86f6cfe9",
 			"key": "ExtLength",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9b8b9ed6-8333-4ef0-a5aa-0b340270dc9a",
+			"id": "5b4e7084-89e0-4d49-8e38-58cfb4525995",
 			"key": "TenantStatus",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "a4aea843-898a-4994-95f5-7ba5a79aae92",
+			"id": "71699fc8-4625-40ee-8512-accff43e129e",
 			"key": "UADsID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "4b3adc5a-bf82-4d37-b8bd-12bd26afcd1e",
+			"id": "89c69da9-6227-4f5e-b20a-30be598c25d9",
 			"key": "Primary",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "58c2c04b-c23d-4310-a294-c0af178935d1",
+			"id": "27c81417-e9e5-4b6a-8c74-1ecf0745400f",
 			"key": "Secondary",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "3c9dc975-170e-47c6-a734-f6976dfe7a9f",
+			"id": "f92a2eef-3206-4c45-a69d-fe6d208b5b9d",
 			"key": "Tertiary",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "9b992980-de32-487f-8f43-ae67b3e7344a",
+			"id": "a1e25a76-51fc-4498-bb0c-007869b25b05",
 			"key": "PrimaryEm",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "6ef4d239-91ce-43a8-85b5-3c04befbc35b",
+			"id": "670fd0f2-3a31-45ef-b4f5-f938958ebcaa",
 			"key": "SecondaryEm",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "791f13e8-a7b4-4e1e-a144-503e70b7cf98",
+			"id": "5ff5c9d0-5b93-405a-8fc3-cb8cad8746c7",
 			"key": "TertiaryEm",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d2f759f9-1712-4a89-b856-6a4179c43ebe",
+			"id": "7a84b8de-0dc3-4e00-a95d-10861b557d01",
 			"key": "CallerID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "d388fb22-3305-4b7c-84a3-28d892bd7457",
+			"id": "2dfdc985-ad0e-412c-a9db-7651a0ebdee9",
 			"key": "MatchEx",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "7a9693dd-52f8-4e28-a56f-720193f92061",
+			"id": "6765079f-5edc-48e7-9cee-f74ce75afcdb",
 			"key": "CLIRoutingID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "c2944ded-7de2-4c4a-9f3b-56d9e933fb2f",
+			"id": "855dbad0-443d-43f0-a5a9-81fbcf03a967",
 			"key": "SP-ID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "fe85ba9e-7e06-4d7b-a44a-cbfe186308f5",
+			"id": "cb119b0e-d076-4962-a099-3c10c5128b84",
 			"key": "RouteID",
 			"value": "",
 			"type": "string"
 		},
 		{
-			"id": "301591a1-1e7e-4fcd-b4a3-be5745d752a4",
+			"id": "7f1f7e65-b4f3-40d8-8438-5d4fcf64fc9f",
 			"key": "DestGrID",
 			"value": "",
 			"type": "string"
